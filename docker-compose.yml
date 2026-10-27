@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-brownies}
+      POSTGRES_USER: ${POSTGRES_USER:-brownie_app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports:
+      - "5432:5432"
+    volumes:
+      - brownie_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-brownies}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-brownie_app}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      BROWNIE_WHATSAPP_NUMBER: ${BROWNIE_WHATSAPP_NUMBER:?Set BROWNIE_WHATSAPP_NUMBER in .env}
+      BROWNIE_PRODUCT_NAME: ${BROWNIE_PRODUCT_NAME:-Brownie Cake}
+      BROWNIE_PRICE: ${BROWNIE_PRICE:-100}
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres
+
+volumes:
+  brownie_data:
