@@ -168,7 +168,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const stickyOrder = document.createElement("a");
         stickyOrder.href = "/order.html";
         stickyOrder.className = "mobile-sticky-order";
-        stickyOrder.textContent = "🍫 Order Now";
+        stickyOrder.innerHTML = `
+  <img
+    src="/images/hamsa-brownie-logo.png"
+    alt=""
+    class="sticky-order-logo"
+  >
+  <span>Order Now</span>
+`;
         stickyOrder.setAttribute("aria-label", "Order Brownie Cake now");
         document.body.appendChild(stickyOrder);
     }

@@ -1170,3 +1170,33 @@
         transition: none;
     }
 }
+/* Hamsa Brownies logo in mobile sticky Order Now button */
+.mobile-sticky-order {
+    gap: 10px;
+}
+
+.mobile-sticky-order .sticky-order-logo {
+    display: block;
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    flex-shrink: 0;
+    transition: transform 300ms ease;
+}
+
+.mobile-sticky-order:hover .sticky-order-logo {
+    transform: rotate(-8deg) scale(1.12);
+}
+
+@media (max-width: 420px) {
+    .mobile-sticky-order .sticky-order-logo {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mobile-sticky-order .sticky-order-logo {
+        transition: none;
+    }
+}
