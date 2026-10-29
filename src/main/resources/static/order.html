@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Order Now | Hamsa Brownies</title><link rel="stylesheet" href="/style.css"></head>
+<body class="customer-site">
+<nav id="siteNavigation" class="site-nav" aria-label="Main navigation"></nav>
+<main><h1 id="brand" class="order-page-title">Brownie Cake Orders</h1><section class="hero"><div><span class="pill">ORDER ONLINE</span><h2>Brownie happiness,<br>delivered locally.</h2><p>Place your order below. We'll confirm availability and delivery with you on WhatsApp.</p></div><div class="brownie-art brownie-art-logo">
+    <img
+            src="/images/hamsa-brownie-logo.png"
+            alt="Hamsa Brownies homemade chocolate brownie"
+            class="order-brownie-logo"
+    >
+    <span>Freshly Made with Love ❤️</span>
+</div></section>
+<div class="columns"><section class="panel"><h2>Place an order</h2><p class="muted">Fill in your delivery details. All fields marked * are required.</p>
+<form id="orderForm"><label>Your name *<input name="customerName" required maxlength="100" placeholder="Full name"></label>
+<label>WhatsApp / phone number *<input name="phone" required minlength="8" maxlength="20" placeholder="+91 98765 43210"></label>
+<label>Delivery address *<textarea name="address" required maxlength="1000" rows="3" placeholder="House/flat, street, area, landmark, PIN code"></textarea></label>
+<div class="two"><label>Quantity *<input name="quantity" type="number" min="1" max="100" value="1" required></label><label>Price per brownie cake<div class="price" id="unitPrice">Loading…</div></label></div>
+<label>Notes (optional)<textarea name="notes" rows="2" maxlength="500" placeholder="Preferred delivery time, instructions, etc."></textarea></label>
+<div class="total">Estimated total <strong id="total">—</strong></div><button type="submit" id="submitBtn">Place order</button><p class="fine">Submitting saves your order for the bakery. Your order is not confirmed until the seller contacts you.</p><div id="message" role="status"></div></form></section>
+<section class="panel steps"><h2>What happens next?</h2><div class="step"><b>1</b><div><strong>Order received</strong><p>Your order gets a unique reference number.</p></div></div><div class="step"><b>2</b><div><strong>We confirm</strong><p>We'll check availability, delivery area and timing.</p></div></div><div class="step"><b>3</b><div><strong>Freshly prepared</strong><p>We'll update your order status as we prepare it.</p></div></div><div class="contact"><h3>Prefer WhatsApp?</h3><p>Ask a question or place an order by messaging us.</p><a class="whatsapp" id="waBottom" target="_blank" rel="noopener">Chat on WhatsApp</a></div></section></div>
+
+    <footer id="siteFooter" class="site-footer"></footer>
+</main><script src="/app.js"></script>
+<script src="/layout.js" defer></script>
+</body></html>
+
+

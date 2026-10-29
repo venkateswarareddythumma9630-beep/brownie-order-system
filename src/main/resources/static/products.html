@@ -1,0 +1,62 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Our Brownies | Hamsa Brownies</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="customer-site">
+<nav id="siteNavigation" class="site-nav" aria-label="Main navigation"></nav>
+
+<main class="home-main">
+    <section class="home-story">
+        <span class="home-kicker">FRESHLY PREPARED</span>
+        <h1>Our Brownie Collection</h1>
+        <p>Start with our signature brownie cake.</p>
+    </section>
+
+    <section class="product-grid">
+        <article class="product-card">
+            <div class="product-photo">
+                <img
+                        src="/images/brownie-product.jpg"
+                        alt="Homemade chocolate brownie cake"
+                        loading="lazy"
+                >
+            </div>
+            <div class="product-info">
+                <span class="home-kicker">OUR SIGNATURE</span>
+                <h2>Brownie Cake</h2>
+                <p>A rich chocolate treat for your sweet moments.</p>
+                <strong id="productPrice">Loading price...</strong>
+                <a class="home-cta" href="/order.html">Order Now →</a>
+            </div>
+        </article>
+    </section>
+</main>
+
+<footer id="siteFooter" class="site-footer"></footer>
+
+<script>
+    fetch("/api/config")
+        .then(response => {
+            if (!response.ok) throw new Error("Unable to load price");
+            return response.json();
+        })
+        .then(config => {
+            document.querySelector("#productPrice").textContent =
+                new Intl.NumberFormat("en-IN", {
+                    style: "currency",
+                    currency: "INR"
+                }).format(config.unitPrice);
+        })
+        .catch(() => {
+            document.querySelector("#productPrice").textContent =
+                "Contact us for pricing";
+        });
+</script>
+<script src="/layout.js" defer></script>
+</body>
+</html>

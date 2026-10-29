@@ -1,1 +1,1172 @@
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:#30251f;background:#fffaf5;font-synthesis:none}*{box-sizing:border-box}body{margin:0}header{background:#3b211b;color:#fff8f0;padding:26px max(20px,calc((100% - 1100px)/2));display:flex;justify-content:space-between;align-items:center;gap:20px}header h1{margin:6px 0;font-size:clamp(25px,4vw,38px)}header p{margin:0;color:#e9d5c9}.eyebrow{font-size:11px;letter-spacing:2px;color:#e6b68f;font-weight:800}.whatsapp{display:inline-block;background:#2e9e62;color:white;padding:12px 16px;border-radius:10px;text-decoration:none;font-weight:750;white-space:nowrap}main{max-width:1100px;margin:auto;padding:24px 18px}.hero{background:#f4e3d4;border-radius:20px;padding:32px;display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:22px}.hero h2{font-size:clamp(30px,5vw,48px);line-height:1.08;margin:14px 0}.hero p{max-width:510px;color:#6d5144;line-height:1.6}.pill{font-size:11px;font-weight:800;letter-spacing:1.4px;color:#743c28}.brownie-art{font-size:90px;text-align:center;min-width:150px}.brownie-art span{display:block;font-size:12px;line-height:1.5;color:#74442f;font-weight:800}.columns{display:grid;grid-template-columns:1.2fr .8fr;gap:22px}.panel{background:white;border:1px solid #eaded5;border-radius:16px;padding:24px;box-shadow:0 5px 20px #49271708}.panel h2{margin-top:0}.muted,.fine{color:#806f65;font-size:13px;line-height:1.5}form{display:grid;gap:14px}label{display:grid;gap:7px;font-size:13px;font-weight:750}input,textarea{width:100%;padding:12px;border:1px solid #d9c8bc;border-radius:9px;font:inherit;font-weight:400;background:#fffdfa;color:#30251f}input:focus,textarea:focus{outline:2px solid #bd815b;border-color:transparent}.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.price{padding:12px;border-radius:9px;background:#f8eee6;font-weight:800}.total{display:flex;justify-content:space-between;padding:15px 0;border-top:1px solid #eee0d6;font-size:16px}.total strong{font-size:20px}button{border:0;border-radius:10px;padding:14px 18px;background:#713a28;color:white;font:inherit;font-weight:800;cursor:pointer}button:disabled{opacity:.6;cursor:wait}.secondary{background:#f2e5da;color:#59382b}.fine{font-size:11px;margin:0}.steps{display:flex;flex-direction:column;gap:18px}.step{display:flex;gap:13px;align-items:flex-start}.step b{background:#f2e1d2;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;flex-shrink:0}.step p,.contact p{font-size:13px;color:#806f65;line-height:1.5;margin:5px 0}.contact{border-top:1px solid #eee0d6;padding-top:16px;margin-top:auto}.contact h3{margin:0}#message{font-size:14px;line-height:1.5}.success{padding:12px;background:#e8f6ed;border-radius:9px;color:#1c6739}.error{padding:12px;background:#fff0eb;border-radius:9px;color:#963d24}footer{text-align:center;padding:26px 10px;color:#8b796d;font-size:12px}.warning{padding:14px;border:1px solid #e5b46d;background:#fff4dc;border-radius:10px;margin-bottom:18px;font-size:13px;line-height:1.5}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.stat{background:white;border:1px solid #eaded5;border-radius:12px;padding:16px}.stat span{display:block;color:#806f65;font-size:12px}.stat strong{display:block;font-size:26px;margin-top:6px}.table-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.table-head h2{margin-bottom:4px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #eee0d6;vertical-align:top}th{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#806f65}td .details{max-width:250px;white-space:pre-wrap;overflow-wrap:anywhere}.status-select{min-width:155px;padding:8px;border:1px solid #d9c8bc;border-radius:8px;background:white}small{color:#806f65}@media(max-width:760px){header{align-items:flex-start;flex-direction:column}.hero{padding:23px}.brownie-art{font-size:64px;min-width:90px}.columns{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.panel{padding:18px}.table-head{align-items:flex-start;flex-direction:column}}@media(max-width:420px){.brownie-art{display:none}.two{grid-template-columns:1fr}}
+/* Products page */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 25px auto 80px;
+    max-width: 850px;
+}
+
+.product-card {
+    overflow: hidden;
+    background: white;
+    border: 1px solid #f0ddca;
+    border-radius: 24px;
+    box-shadow: 0 12px 35px #49271712;
+    transition: transform .25s, box-shadow .25s;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px #49271720;
+}
+
+.product-illustration {
+    background: #f5dfc7;
+    min-height: 220px;
+    display: grid;
+    place-items: center;
+    font-size: 110px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 26px;
+}
+
+.product-info h2 {
+    margin: 12px 0 5px;
+}
+
+.product-info p {
+    color: #72594a;
+    line-height: 1.6;
+}
+
+.product-info > strong {
+    font-size: 25px;
+    color: #713a28;
+}
+
+.product-info .home-cta {
+    margin-top: 20px;
+}
+.order-page-title {
+    font-size: clamp(30px, 4vw, 44px);
+    margin: 12px 0 24px;
+    color: #382117;
+}
+/* Shared customer navigation */
+.customer-site .site-nav {
+    background: #382117;
+    color: #fff5e8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 22px max(24px, calc((100% - 1150px)/2));
+}
+
+.customer-site .site-logo {
+    color: #fff5e8;
+    font-size: 23px;
+    font-weight: 850;
+    text-decoration: none;
+}
+
+.customer-site .site-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.customer-site .site-links a {
+    color: #fff5e8;
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.customer-site .site-links a.active,
+.customer-site .site-links a:hover {
+    color: #ffc24b;
+}
+
+@media (max-width: 760px) {
+    .customer-site .site-nav {
+        flex-direction: column;
+    }
+
+    .customer-site .site-links {
+        justify-content: center;
+        gap: 15px;
+    }
+}
+
+/* Homepage family illustration — full-width landscape, no card or cropping */
+.customer-site .home-main .family-art {
+    display: block;
+    width: 100%;
+    max-width: 1180px;
+    height: auto;
+    margin: 20px auto 30px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    animation: none;
+    transform: none;
+}
+
+.customer-site .home-main .family-art img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    object-fit: contain;
+    object-position: center;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    animation: none;
+    transform: none;
+}
+
+@media (max-width: 760px) {
+    .customer-site .home-main .family-art {
+        margin: 15px auto 25px;
+    }
+}
+
+/* Handcrafted story section */
+.story-paper {
+    max-width: 850px;
+    margin: 45px auto 65px;
+    padding: 45px 35px;
+    background: #fff2dc;
+    border: 2px dashed #e8c8a1;
+    border-radius: 25px;
+    box-shadow: 8px 10px 0 #f0dfc9;
+}
+
+.story-paper h2 {
+    color: #653a29;
+}
+
+.story-paper p {
+    max-width: 680px;
+}
+
+@media (max-width: 760px) {
+    .story-paper {
+        margin: 30px auto 45px;
+        padding: 30px 20px;
+    }
+}
+
+/* Scroll reveal animations */
+.reveal {
+    opacity: 1;
+    transform: none;
+}
+
+/* Only hide elements when JavaScript is active */
+.reveal-ready .reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition:
+            opacity 750ms ease,
+            transform 750ms cubic-bezier(.2, .7, .2, 1);
+}
+
+.reveal-ready .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Add a little animation to feature cards */
+.home-features > div {
+    transition:
+            transform 300ms ease,
+            box-shadow 300ms ease;
+}
+
+.home-features > div:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px #49271718;
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .reveal-ready .reveal,
+    .reveal-ready .reveal.visible {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .home-features > div {
+        transition: none;
+    }
+}
+
+/* Customer feedback cards */
+.feedback-intro {
+    max-width: 620px;
+    margin: 16px auto 30px;
+}
+
+.feedback-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin: 35px 0;
+}
+
+.feedback-card {
+    background: #fffdf9;
+    border: 1px solid #efd9c8;
+    border-radius: 20px;
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: 0 8px 22px #4927170a;
+    transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.feedback-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 28px #49271716;
+}
+
+.feedback-icon {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.feedback-card h3 {
+    color: #583222;
+    font-size: 19px;
+}
+
+.feedback-card p {
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+@media (max-width: 760px) {
+    .feedback-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .feedback-card {
+        transition: none;
+    }
+}
+
+/* Product image */
+.product-photo {
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    background: #f5dfc7;
+}
+
+.product-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 350ms ease;
+}
+
+.product-card:hover .product-photo img {
+    transform: scale(1.04);
+}
+
+/* Improved mobile layout */
+@media (max-width: 760px) {
+    .home-main {
+        padding: 24px 16px;
+    }
+
+    .home-hero {
+        gap: 20px;
+    }
+
+    .home-intro h1 {
+        font-size: clamp(34px, 8vw, 46px);
+    }
+
+    .home-story,
+    .home-feedback {
+        padding: 35px 18px;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+        margin-bottom: 40px;
+    }
+
+    .product-photo {
+        height: 230px;
+    }
+
+    .product-info {
+        padding: 20px;
+    }
+
+    .site-nav {
+        padding: 18px 14px;
+    }
+
+    .site-links {
+        gap: 12px;
+    }
+
+    .site-links a {
+        font-size: 13px;
+    }
+
+    .site-footer {
+        padding: 28px 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .product-photo img {
+        transition: none;
+    }
+}
+
+/* Responsive navigation */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid #9b7865;
+    border-radius: 10px;
+    padding: 10px;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    margin: 5px auto;
+    background: #fff5e8;
+    border-radius: 2px;
+}
+
+@media (max-width: 760px) {
+    .customer-site .site-nav {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 18px;
+        gap: 10px;
+    }
+
+    .customer-site .site-logo {
+        font-size: 21px;
+    }
+
+    .menu-toggle {
+        display: block;
+        flex-shrink: 0;
+    }
+
+    .customer-site .site-links {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 0;
+        padding: 8px 0;
+    }
+
+    .customer-site .site-links.menu-open {
+        display: flex;
+    }
+
+    .customer-site .site-links a {
+        display: block;
+        padding: 13px 12px;
+        font-size: 15px;
+        border-radius: 8px;
+    }
+
+    .customer-site .site-links a:hover,
+    .customer-site .site-links a.active {
+        background: #513125;
+        color: #ffc24b;
+    }
+}
+
+@media (min-width: 761px) {
+    .customer-site .site-links {
+        display: flex;
+    }
+}
+
+/* Floating WhatsApp contact button */
+.floating-whatsapp {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    background: #25d366;
+    color: #fff;
+    padding: 13px 18px;
+    border-radius: 50px;
+
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 800;
+
+    box-shadow: 0 8px 25px #145c3038;
+    transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.floating-whatsapp[hidden] {
+    display: none;
+}
+
+.floating-whatsapp:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px #145c3050;
+}
+
+.floating-whatsapp svg {
+    flex-shrink: 0;
+}
+
+@media (max-width: 760px) {
+    .floating-whatsapp {
+        right: 16px;
+        bottom: 16px;
+        width: 54px;
+        height: 54px;
+        padding: 12px;
+        border-radius: 50%;
+    }
+
+    .floating-whatsapp-label {
+        display: none;
+    }
+
+    .floating-whatsapp svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .site-footer {
+        padding-bottom: 85px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .floating-whatsapp {
+        transition: none;
+    }
+}
+
+/* Back to Top button */
+.back-to-top {
+    position: fixed;
+    right: 24px;
+    bottom: 100px;
+    z-index: 999;
+
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 50%;
+
+    background: #5a3021;
+    color: #fff5e8;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+
+    box-shadow: 0 5px 16px #00000030;
+}
+
+.back-to-top[hidden] {
+    display: none;
+}
+
+.back-to-top:hover {
+    background: #7b4530;
+}
+
+/* Sticky Order Now: hidden on desktop */
+.mobile-sticky-order {
+    display: none;
+}
+
+@media (max-width: 760px) {
+    .customer-site {
+        padding-bottom: 80px;
+    }
+
+    .mobile-sticky-order {
+        position: fixed;
+        left: 12px;
+        right: 82px;
+        bottom: 14px;
+        z-index: 998;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        min-height: 54px;
+        padding: 10px 14px;
+
+        background: #f5ad36;
+        color: #382117;
+        border-radius: 30px;
+
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 800;
+        box-shadow: 0 5px 18px #00000030;
+    }
+
+    .mobile-sticky-order:hover {
+        background: #ffc45e;
+    }
+
+    /* Keep WhatsApp on the right */
+    .floating-whatsapp {
+        right: 16px;
+        bottom: 14px;
+        z-index: 1000;
+    }
+
+    /* Back to Top sits above WhatsApp */
+    .back-to-top {
+        right: 20px;
+        bottom: 86px;
+        width: 46px;
+        height: 46px;
+    }
+
+    .site-footer {
+        padding-bottom: 100px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mobile-sticky-order,
+    .back-to-top {
+        scroll-behavior: auto;
+    }
+}
+
+/* ==========================================
+   Animated Bakery Homepage Buttons
+   ========================================== */
+
+.home-main .bakery-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    overflow: hidden;
+
+    padding: 15px 26px;
+    min-height: 52px;
+    border-radius: 50px;
+
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+    isolation: isolate;
+
+    transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease,
+            background-color 0.3s ease,
+            color 0.3s ease;
+}
+
+/* Animated shine */
+.home-main .bakery-btn::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -100%;
+    width: 55%;
+    height: 200%;
+    z-index: -1;
+
+    background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.24),
+            transparent
+    );
+
+    transform: skewX(-25deg);
+    transition: left 0.65s ease;
+}
+
+.home-main .bakery-btn:hover::before {
+    left: 160%;
+}
+
+.home-main .bakery-btn:hover {
+    transform: translateY(-4px);
+}
+
+.home-main .bakery-btn:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+.home-main .bakery-btn:focus-visible {
+    outline: 3px solid #e9a73b;
+    outline-offset: 4px;
+}
+
+/* Animated arrow */
+.home-main .bakery-btn .btn-arrow {
+    display: inline-block;
+    font-size: 21px;
+    line-height: 1;
+
+    transition: transform 0.3s ease;
+}
+
+.home-main .bakery-btn:hover .btn-arrow {
+    transform: translateX(5px);
+}
+
+/* 1. Order Your Brownie */
+.home-main .bakery-btn-primary {
+    background: linear-gradient(
+            135deg,
+            #76432c,
+            #4a261a
+    );
+    color: #fff8ec;
+    border: 2px solid #76432c;
+
+    box-shadow: 0 7px 18px rgba(74, 38, 26, 0.22);
+    animation: bakeryEntrance 0.7s ease both;
+}
+
+.home-main .bakery-btn-primary:hover {
+    box-shadow: 0 12px 26px rgba(74, 38, 26, 0.3);
+}
+
+/* 2. Discover Our Story */
+.home-main .bakery-btn-outline {
+    background: rgba(255, 247, 233, 0.88);
+    color: #673725;
+    border: 2px solid #a56a45;
+
+    box-shadow: 0 5px 14px rgba(103, 55, 37, 0.08);
+}
+
+.home-main .bakery-btn-outline:hover {
+    background: #f5e2c6;
+    box-shadow: 0 10px 22px rgba(103, 55, 37, 0.16);
+}
+
+/* 3. Share Feedback on WhatsApp */
+.home-main .bakery-btn-whatsapp {
+    background: linear-gradient(
+            135deg,
+            #25d366,
+            #128c50
+    );
+    color: #ffffff;
+    border: 2px solid #128c50;
+
+    box-shadow: 0 7px 20px rgba(18, 140, 80, 0.2);
+}
+
+.home-main .bakery-btn-whatsapp:hover {
+    box-shadow: 0 12px 26px rgba(18, 140, 80, 0.3);
+}
+
+/* Entrance animation */
+@keyframes bakeryEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Mobile improvements */
+@media (max-width: 760px) {
+    .home-main .bakery-btn {
+        width: min(100%, 340px);
+        padding: 14px 18px;
+        font-size: 14px;
+        gap: 8px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .home-main .bakery-btn {
+        animation: none;
+        transition: none;
+    }
+
+    .home-main .bakery-btn::before,
+    .home-main .bakery-btn .btn-arrow {
+        transition: none;
+    }
+}
+/* Hamsa Brownies brand logo */
+.customer-site .site-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.customer-site .brand-logo-img {
+    width: 46px;
+    height: 46px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid #dba96c;
+    box-shadow: 0 4px 12px #00000025;
+    transition: transform 300ms ease;
+}
+
+.customer-site .site-logo:hover .brand-logo-img {
+    transform: rotate(-6deg) scale(1.08);
+}
+
+@media (max-width: 760px) {
+    .customer-site .brand-logo-img {
+        width: 38px;
+        height: 38px;
+    }
+
+    .customer-site .site-logo {
+        font-size: 19px;
+        gap: 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .customer-site .brand-logo-img {
+        transition: none;
+    }
+}
+/* Hamsa Brownies premium header */
+.customer-site .site-nav {
+    background: linear-gradient(115deg, #32170f, #542b1c 55%, #32170f);
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
+.customer-site .site-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.customer-site .brand-logo-img {
+    width: 78px;
+    height: 78px;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: transform 300ms ease;
+}
+
+.customer-site .site-logo:hover .brand-logo-img {
+    transform: rotate(-5deg) scale(1.06);
+}
+
+.customer-site .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 0.95;
+}
+
+.customer-site .brand-name-first {
+    color: #fff7ed;
+    font-family: "Brush Script MT", "Segoe Script", cursive;
+    font-size: 38px;
+    font-weight: 700;
+}
+
+.customer-site .brand-name-second {
+    color: #f4c58a;
+    font-family: Georgia, serif;
+    font-size: 31px;
+    font-weight: 700;
+    margin-left: 8px;
+}
+
+.customer-site .brand-tagline {
+    color: #ffe6d0;
+    font-size: 9px;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    line-height: 1.3;
+}
+
+.customer-site .site-links a {
+    position: relative;
+    transition: color 250ms ease;
+}
+
+.customer-site .site-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    width: 0;
+    height: 2px;
+    background: #f4c58a;
+    transition: width 250ms ease;
+}
+
+.customer-site .site-links a:hover::after,
+.customer-site .site-links a.active::after {
+    width: 100%;
+}
+
+@media (max-width: 760px) {
+    .customer-site .brand-logo-img {
+        width: 52px;
+        height: 52px;
+    }
+
+    .customer-site .brand-name-first {
+        font-size: 25px;
+    }
+
+    .customer-site .brand-name-second {
+        font-size: 21px;
+    }
+
+    .customer-site .brand-tagline {
+        font-size: 7px;
+        letter-spacing: 1px;
+    }
+
+    .customer-site .site-logo {
+        gap: 8px;
+    }
+
+    .customer-site .site-links a::after {
+        bottom: 3px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .customer-site .brand-logo-img,
+    .customer-site .site-links a,
+    .customer-site .site-links a::after {
+        transition: none;
+    }
+}
+.customer-site .brand-logo-img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
+@media (max-width: 760px) {
+    .customer-site .brand-logo-img {
+        width: 58px;
+        height: 58px;
+    }
+}
+/* Hamsa Brownies illustrated logo */
+.customer-site .brand-logo-img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
+@media (max-width: 760px) {
+    .customer-site .brand-logo-img {
+        width: 58px;
+        height: 58px;
+    }
+}
+/* Hamsa Brownies — header refinements */
+.customer-site .site-nav {
+    padding: 16px 4%;
+    gap: 24px;
+}
+
+.customer-site .site-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.customer-site .brand-logo-img {
+    width: 115px;
+    height: 115px;
+    flex-shrink: 0;
+    object-fit: contain;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.customer-site .brand-name-first {
+    font-size: 45px;
+    line-height: 1;
+}
+
+.customer-site .brand-name-second {
+    font-size: 39px;
+    line-height: 1.05;
+}
+
+.customer-site .brand-tagline {
+    font-size: 10px;
+    letter-spacing: 2.2px;
+    margin-top: 9px;
+}
+
+.customer-site .site-links {
+    align-items: center;
+    gap: 30px;
+}
+
+.customer-site .site-links a {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* Mobile layout */
+@media (max-width: 760px) {
+    .customer-site .site-nav {
+        padding: 12px 16px;
+        gap: 8px;
+    }
+
+    .customer-site .brand-logo-img {
+        width: 62px;
+        height: 62px;
+    }
+
+    .customer-site .brand-name-first {
+        font-size: 27px;
+    }
+
+    .customer-site .brand-name-second {
+        font-size: 24px;
+    }
+
+    .customer-site .brand-tagline {
+        font-size: 7px;
+        letter-spacing: 1px;
+    }
+
+    .customer-site .site-links {
+        gap: 0;
+    }
+}
+/* Hamsa Brownies — refined header logo */
+.customer-site .brand-logo-img {
+    width: 125px;
+    height: 105px;
+    object-fit: contain;
+    object-position: center;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
+@media (max-width: 760px) {
+    .customer-site .brand-logo-img {
+        width: 68px;
+        height: 60px;
+    }
+}
+/* Hamsa Brownies — final header refinements */
+@media (min-width: 761px) {
+    .customer-site .site-nav {
+        min-height: 125px;
+        padding: 12px 4%;
+        gap: 30px;
+    }
+
+    .customer-site .brand-logo-img {
+        width: 110px;
+        height: 95px;
+    }
+
+    .customer-site .brand-name-first {
+        font-size: 41px;
+    }
+
+    .customer-site .brand-name-second {
+        font-size: 36px;
+    }
+
+    .customer-site .site-links {
+        gap: 32px;
+    }
+
+    .customer-site .site-links a {
+        font-size: 16px;
+    }
+}
+
+/* ======================================
+   Hamsa Brownies — Shared Logo Styling
+   ====================================== */
+
+/* Order page brownie illustration */
+.customer-site .brownie-art-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 180px;
+    text-align: center;
+}
+
+.customer-site .order-brownie-logo {
+    display: block;
+    width: 190px;
+    max-width: 100%;
+    height: 170px;
+    object-fit: contain;
+    transition: transform 350ms ease;
+}
+
+.customer-site .order-brownie-logo:hover {
+    transform: scale(1.07) rotate(-3deg);
+}
+
+.customer-site .brownie-art-logo span {
+    font-size: 13px;
+    font-weight: 800;
+    color: #74442f;
+    line-height: 1.5;
+}
+
+/* Home page Order Your Brownie button */
+.home-main .bakery-btn .btn-brownie-logo {
+    display: block;
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    flex-shrink: 0;
+    transition: transform 300ms ease;
+}
+
+.home-main .bakery-btn:hover .btn-brownie-logo {
+    transform: rotate(-8deg) scale(1.15);
+}
+
+/* Mobile adjustments */
+@media (max-width: 760px) {
+    .customer-site .order-brownie-logo {
+        width: 145px;
+        height: 130px;
+    }
+
+    .home-main .bakery-btn .btn-brownie-logo {
+        width: 29px;
+        height: 29px;
+    }
+}
+
+/* Keep the logo visible on very small screens */
+@media (max-width: 420px) {
+    .customer-site .brownie-art-logo {
+        display: flex;
+        min-width: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .customer-site .order-brownie-logo,
+    .home-main .bakery-btn .btn-brownie-logo {
+        transition: none;
+    }
+}
+/* Hamsa Brownies logo in feedback card */
+.feedback-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 75px;
+    margin-bottom: 15px;
+}
+
+.feedback-brownie-logo {
+    display: block;
+    width: 85px;
+    height: 75px;
+    object-fit: contain;
+    transition: transform 350ms ease;
+}
+
+.feedback-card:hover .feedback-brownie-logo {
+    transform: scale(1.12) rotate(-5deg);
+}
+
+@media (max-width: 760px) {
+    .feedback-brownie-logo {
+        width: 75px;
+        height: 65px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .feedback-brownie-logo {
+        transition: none;
+    }
+}

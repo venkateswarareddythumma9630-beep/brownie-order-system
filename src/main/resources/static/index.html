@@ -1,14 +1,140 @@
+
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Brownie Orders</title><link rel="stylesheet" href="/style.css"></head>
-<body><header><div><div class="eyebrow">YOUR LOCAL BROWNIE BAKERY</div><h1 id="brand">Brownie Cake Orders</h1><p>Freshly baked. Made with love.</p></div><a class="whatsapp" id="waTop" target="_blank" rel="noopener">WhatsApp us</a></header>
-<main><section class="hero"><div><span class="pill">ORDER ONLINE</span><h2>Brownie happiness,<br>delivered locally.</h2><p>Place your order below. We'll confirm availability and delivery with you on WhatsApp.</p></div><div class="brownie-art" aria-label="Brownie illustration">🍫<span>Fresh batch<br>made daily</span></div></section>
-<div class="columns"><section class="panel"><h2>Place an order</h2><p class="muted">Fill in your delivery details. All fields marked * are required.</p>
-<form id="orderForm"><label>Your name *<input name="customerName" required maxlength="100" placeholder="Full name"></label>
-<label>WhatsApp / phone number *<input name="phone" required minlength="8" maxlength="20" placeholder="+91 98765 43210"></label>
-<label>Delivery address *<textarea name="address" required maxlength="1000" rows="3" placeholder="House/flat, street, area, landmark, PIN code"></textarea></label>
-<div class="two"><label>Quantity *<input name="quantity" type="number" min="1" max="100" value="1" required></label><label>Price per brownie cake<div class="price" id="unitPrice">Loading…</div></label></div>
-<label>Notes (optional)<textarea name="notes" rows="2" maxlength="500" placeholder="Preferred delivery time, instructions, etc."></textarea></label>
-<div class="total">Estimated total <strong id="total">—</strong></div><button type="submit" id="submitBtn">Place order</button><p class="fine">Submitting saves your order for the bakery. Your order is not confirmed until the seller contacts you.</p><div id="message" role="status"></div></form></section>
-<section class="panel steps"><h2>What happens next?</h2><div class="step"><b>1</b><div><strong>Order received</strong><p>Your order gets a unique reference number.</p></div></div><div class="step"><b>2</b><div><strong>We confirm</strong><p>We'll check availability, delivery area and timing.</p></div></div><div class="step"><b>3</b><div><strong>Freshly prepared</strong><p>We'll update your order status as we prepare it.</p></div></div><div class="contact"><h3>Prefer WhatsApp?</h3><p>Ask a question or place an order by messaging us.</p><a class="whatsapp" id="waBottom" target="_blank" rel="noopener">Chat on WhatsApp</a></div></section></div>
-<footer>Local bakery · Please keep your phone available for order confirmation.</footer></main><script src="/app.js"></script></body></html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hamsa Brownies | Homemade with Love</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="customer-site">
+
+<nav id="siteNavigation" class="site-nav" aria-label="Main navigation"></nav>
+
+<main class="home-main">
+    <section class="home-hero">
+        <div class="home-intro">
+            <span class="home-kicker">✦ Homemade with Love</span>
+            <h1>Small Cakes.<br>Big Happiness.</h1>
+            <p>
+                Delicious, rich and fudgy brownie cakes,
+                freshly prepared with care and love.
+            </p>
+            <a href="/order.html" class="bakery-btn bakery-btn-primary">
+                <img
+                        src="/images/hamsa-brownie-logo.png"
+                        alt=""
+                        class="btn-brownie-logo"
+                        aria-hidden="true"
+                >
+                <span>Order Your Brownie</span>
+                <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+        </div>
+
+        <div class="family-art">
+            <img
+                    src="/images/brownie-family.png"
+                    alt="A happy family enjoying homemade chocolate brownies together"
+                    loading="eager"
+            >
+        </div>
+    </section>
+
+
+    <section class="home-story story-paper reveal">
+        <span class="home-kicker">❤️ OUR LITTLE STORY</span>
+
+        <h2>Made with Love, Shared with Happiness</h2>
+
+        <p>
+            Every sweet memory begins with a little moment of joy.
+            Sometimes it's a family gathering, sometimes it's a
+            celebration, and sometimes it's simply sharing a
+            delicious brownie with someone you love.
+        </p>
+
+        <p>
+            Hamsa Brownies is our little journey of spreading
+            happiness through chocolate, one brownie at a time.
+            We hope every bite brings a smile to your face.
+        </p>
+
+        <a href="/about.html" class="bakery-btn bakery-btn-outline">
+            <span>Discover Our Story</span>
+            <span class="btn-arrow" aria-hidden="true">↗</span>
+        </a>
+    </section>
+
+
+    <section class="home-features reveal">
+        <div>🍫 <strong>Rich Chocolate</strong><span>Made for chocolate lovers</span></div>
+        <div>❤️ <strong>Made with Love</strong><span>Prepared with care</span></div>
+        <div>🎁 <strong>Sweet Moments</strong><span>Perfect for little celebrations</span></div>
+    </section>
+
+
+    <section class="home-feedback reveal">
+        <span class="home-kicker">❤️ CUSTOMER LOVE</span>
+        <h2>Sweet Words From Our Customers</h2>
+
+        <p class="feedback-intro">
+            Every brownie has a story, and we'd love to hear yours!
+            Your feedback helps our little bakery grow.
+        </p>
+
+        <div class="feedback-grid">
+            <article class="feedback-card">
+                <div class="feedback-icon">💛</div>
+                <h3>Your Happiness Matters</h3>
+                <p>
+                    Enjoyed our brownie cake? We'd love to hear
+                    about your experience.
+                </p>
+            </article>
+
+            <article class="feedback-card">
+                <div class="feedback-icon feedback-logo">
+                    <img
+                            src="/images/hamsa-brownie-logo.png"
+                            alt=""
+                            class="feedback-brownie-logo"
+                            loading="lazy"
+                    >
+                </div>
+                <h3>Made for Sweet Moments</h3>
+                <p>
+                    From small celebrations to everyday treats,
+                    every customer matters to us.
+                </p>
+            </article>
+
+            <article class="feedback-card">
+                <div class="feedback-icon">💬</div>
+                <h3>Share Your Experience</h3>
+                <p>
+                    Tell us what you loved and how we can make
+                    your next brownie even better.
+                </p>
+            </article>
+        </div>
+
+        <a id="feedbackWhatsApp"
+           href="#"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="bakery-btn bakery-btn-whatsapp">
+            <span aria-hidden="true">💬</span>
+            <span>Share Feedback on WhatsApp</span>
+            <span class="btn-arrow" aria-hidden="true">↗</span>
+        </a>
+    </section>
+
+</main>
+
+<footer id="siteFooter" class="site-footer"></footer>
+
+<script src="/home.js" defer></script>
+<script src="/layout.js" defer></script>
+</body>
+</html>
