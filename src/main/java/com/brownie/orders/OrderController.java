@@ -15,7 +15,7 @@ import java.util.Map;
 @RequestMapping("/api")
 public class OrderController {
     private final OrderRepository repository;
-    @Value("${brownie.price:100}") private BigDecimal configuredPrice;
+    @Value("${brownie.price:199}") private BigDecimal configuredPrice;
     @Value("${brownie.product-name:Brownie Cake}") private String productName;
     @Value("${brownie.whatsapp-number:91XXXXXXXXXX}") private String whatsappNumber;
 
@@ -118,7 +118,7 @@ public class OrderController {
 
             case "walnut-brownie-delight" -> {
                 selectedProductName = "Walnut Brownie Delight";
-                selectedPrice = new BigDecimal("499.00");
+                selectedPrice = new BigDecimal("599.00");
             }
 
             default -> throw new ResponseStatusException(

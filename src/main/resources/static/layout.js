@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { label: "Home", href: "/" },
         { label: "About Us", href: "/about.html" },
         { label: "Products", href: "/products.html" },
-        { label: "Order Now", href: "/order.html" }
+        { label: "Order Now", href: "/products.html" }
     ];
 
     const currentPath = window.location.pathname;
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!isOrderPage) {
         const stickyOrder = document.createElement("a");
-        stickyOrder.href = "/order.html";
+        stickyOrder.href = "/products.html";
         stickyOrder.className = "mobile-sticky-order";
         stickyOrder.innerHTML = `
   <img
@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
   >
   <span>Order Now</span>
 `;
-        stickyOrder.setAttribute("aria-label", "Order Brownie Cake now");
+        stickyOrder.setAttribute("aria-label", "Choose a brownie to order");
         document.body.appendChild(stickyOrder);
     }
 

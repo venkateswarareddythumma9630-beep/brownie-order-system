@@ -4,12 +4,12 @@ const productId = new URLSearchParams(window.location.search)
 const products = {
     "brownie-cake": {
         name: "Brownie Cake",
-        unitPrice: 100,
+        unitPrice: 199,
         unitLabel: "piece"
     },
     "walnut-brownie-delight": {
         name: "Walnut Brownie Delight",
-        unitPrice: 499,
+        unitPrice: 599,
         unitLabel: "500 g cake"
     }
 };
@@ -26,8 +26,8 @@ if (!selectedProduct) {
 }
 
 let config = {
-    productName: "Brownie Cake",
-    unitPrice: 100,
+    productName: selectedProduct.name,
+    unitPrice: selectedProduct.unitPrice,
     whatsappNumber: ""
 };
 
@@ -107,10 +107,10 @@ fetch("/api/config")
                 : "";
 
         document.querySelector("#waTop").href =
-            waLink("Hi! I'd like to order " + c.productName + ".");
+            waLink("Hi! I'd like to order " + config.productName + ".");
 
         document.querySelector("#waBottom").href =
-            waLink("Hi! I'd like to order " + c.productName + ".");
+            waLink("Hi! I'd like to order " + config.productName + ".");
 
         updateTotal();
     })
