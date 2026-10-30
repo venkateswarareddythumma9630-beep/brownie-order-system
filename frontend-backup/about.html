@@ -1,0 +1,65 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About Us | Brownie Cake</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="customer-site">
+<nav class="site-nav">
+    <a class="site-logo" href="/">🍫 Brownie Cake</a>
+    <div class="site-links">
+        <a href="/">Home</a>
+        <a class="active" href="/about.html">About Us</a>
+        <a href="/products.html">Products</a>
+        <a href="/order.html">Order Now</a>
+    </div>
+</nav>
+
+<main class="home-main">
+    <section class="home-story">
+        <span class="home-kicker">GET TO KNOW US</span>
+        <h1>Our Little Brownie Story</h1>
+        <p>
+            Brownie Cake is a small local bakery project built
+            around a simple idea: sharing delicious chocolate
+            treats and bringing happiness to everyday moments.
+        </p>
+        <p>
+            We believe a sweet treat can make an ordinary day
+            feel special. Whether you're celebrating something
+            or simply craving chocolate, we're happy to be
+            part of that moment.
+        </p>
+    </section>
+
+    <section class="home-features">
+        <div>🍫 <strong>Chocolate Goodness</strong>
+            <span>Delicious brownie cakes</span></div>
+        <div>❤️ <strong>Made with Care</strong>
+            <span>Thoughtfully prepared</span></div>
+        <div>🏠 <strong>Support Local</strong>
+            <span>A growing neighborhood business</span></div>
+    </section>
+
+    <section class="home-feedback">
+        <h2>Be Part of Our Journey</h2>
+        <p>Every order helps our little business grow.</p>
+        <a class="home-cta" href="/order.html">Order Now →</a>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <strong>🍫 Brownie Cake</strong>
+    <p>Small Cakes. Big Happiness.</p>
+    <p>© <span id="copyrightYear"></span> Brownie Cake. All rights reserved.</p>
+    <p>Designed by <strong>Venkateswara Reddy Thumma</strong></p>
+</footer>
+<script>
+    document.querySelector("#copyrightYear").textContent =
+        new Date().getFullYear();
+</script>
+</body>
+</html>

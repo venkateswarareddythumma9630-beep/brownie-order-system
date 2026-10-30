@@ -1,16 +1,14 @@
 
-const statuses = [
-    "NEW",
-    "CONFIRMED",
-    "PREPARING",
-    "READY",
-    "OUT_FOR_DELIVERY",
-    "DELIVERED",
-    "CANCELLED"
-];
+const paymentConfig = {
+    upiId: "8341597910@ybl",
+    paymentMobile: "8341597910",
+    payeeName: "Venkateswara Reddy"
+};
+
 
 const allowedTransitions = {
-    NEW: ["CONFIRMED", "CANCELLED"],
+    NEW: ["PAYMENT_RECEIVED", "CANCELLED"],
+    PAYMENT_RECEIVED: ["CONFIRMED", "CANCELLED"],
     CONFIRMED: ["PREPARING", "CANCELLED"],
     PREPARING: ["READY", "CANCELLED"],
     READY: ["OUT_FOR_DELIVERY", "CANCELLED"],
@@ -18,6 +16,7 @@ const allowedTransitions = {
     DELIVERED: [],
     CANCELLED: []
 };
+
 
 function isOrderClosed(status) {
     return status === "DELIVERED" || status === "CANCELLED";
@@ -46,6 +45,54 @@ const esc = s =>
         "'": "&#39;"
     }[c]));
 
+
+function sendPaymentDetails(order) {
+    let phone = String(order.phone || "").replace(/\D/g, "");
+
+    if (phone.length === 10) {
+        phone = "91" + phone;
+    }
+
+    if (!/^91[6-9]\d{9}$/.test(phone)) {
+        alert("Invalid customer WhatsApp number.");
+        return;
+    }
+
+    const orderNumber = `#BR${String(order.id).padStart(5, "0")}`;
+
+
+    const message =
+        `Hi ${order.customerName}! 🍫❤️\n\n` +
+        `Thank you for ordering from Hamsa Brownies!\n\n` +
+        `Order Reference: ${orderNumber}\n` +
+        `Quantity: ${order.quantity}\n` +
+        `Total Amount: ${money(order.totalAmount)}\n\n` +
+
+        `💳 PAYMENT OPTIONS\n\n` +
+
+        `1️⃣ UPI ID\n` +
+        `${paymentConfig.upiId}\n\n` +
+
+        `2️⃣ Google Pay / PhonePe Number\n` +
+        `${paymentConfig.paymentMobile}\n\n` +
+
+        `Account Name: ${paymentConfig.payeeName}\n\n` +
+
+        `Please pay exactly ${money(order.totalAmount)} ` +
+        `using either option above.\n\n` +
+
+        `After payment, please share your transaction ` +
+        `reference or screenshot with us.\n\n` +
+
+        `Once we verify your payment, we will update ` +
+        `your order status to PAYMENT RECEIVED. ❤️`;
+
+
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, "_blank", "noopener,noreferrer");
+}
+
 function createWhatsAppMessage(order, status) {
     const orderNumber = `#BR${String(order.id).padStart(5, "0")}`;
     const name = order.customerName;
@@ -53,6 +100,7 @@ function createWhatsAppMessage(order, status) {
 
     const messages = {
         NEW: `Hi ${name}! 😊 We have received your ${product} order ${orderNumber}. Thank you for ordering with us!`,
+        PAYMENT_RECEIVED: `Hi ${name}! 💚 We have received and verified your payment for ${product} order ${orderNumber}. Thank you! Your order will be confirmed shortly.`,
         CONFIRMED: `Hi ${name}! 😊 Your ${product} order ${orderNumber} is confirmed. Thank you for ordering with us!`,
         PREPARING: `Hi ${name}! 🍫 Your ${product} order ${orderNumber} is now being prepared. We'll keep you updated!`,
         READY: `Hi ${name}! 🎂 Your ${product} order ${orderNumber} is ready. Thank you!`,
@@ -124,8 +172,9 @@ async function load() {
               <th>Customer</th>
               <th>Qty / total</th>
               <th>Delivery address</th>
-              <th>Notes</th>
-              <th>Status</th>
+             <th>Notes</th>
+             <th>Payment Details</th>
+             <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -145,19 +194,33 @@ async function load() {
                 </td>
                 <td><div class="details">${esc(o.address)}</div></td>
                 <td><div class="details">${esc(o.notes || "—")}</div></td>
+                
                 <td>
-                  <select class="status-select"
-                      data-id="${o.id}"
-                      aria-label="Status for order ${o.id}"
-                      ${isOrderClosed(o.status) ? "disabled" : ""}>
-                    
-                      ${getAvailableStatuses(o.status).map(s => `
-                        <option value="${s}" ${s === o.status ? "selected" : ""}>
-                          ${s.replaceAll("_", " ")}
-                        </option>
-                      `).join("")}
-                    
-                    </select>
+                    <button
+                        type="button"
+                        class="send-payment-btn"
+                        data-payment-id="${o.id}"
+                        ${o.status !== "NEW" ? "disabled" : ""}>
+                        ${o.status === "NEW"
+                            ? "Send Payment Details"
+                            : "Payment Step Completed"}
+                    </button>
+                </td>
+                
+                <td>
+                  
+<select
+    class="status-select"
+    data-id="${o.id}"
+    aria-label="Status for order ${o.id}"
+    size="1"
+    ${isOrderClosed(o.status) ? "disabled" : ""}
+>
+    ${getAvailableStatuses(o.status).map(s =>
+            `<option value="${s}" ${s === o.status ? "selected" : ""}>${s.replaceAll("_", " ")}</option>`
+        ).join("")}
+</select>
+
                     
                     ${isOrderClosed(o.status) ? `
                       <div class="order-closed-label ${
@@ -175,6 +238,21 @@ async function load() {
         </table>
       </div>
     `;
+
+        root.querySelectorAll(".send-payment-btn").forEach(button => {
+            button.addEventListener("click", () => {
+                const order = orders.find(
+                    o => String(o.id) === button.dataset.paymentId
+                );
+
+                if (!order || order.status !== "NEW") {
+                    alert("Payment details can only be sent for new orders.");
+                    return;
+                }
+
+                sendPaymentDetails(order);
+            });
+        });
 
         root.querySelectorAll("select[data-id]").forEach(sel => {
             sel.addEventListener("change", async () => {

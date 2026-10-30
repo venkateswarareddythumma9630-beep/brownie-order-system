@@ -140,18 +140,28 @@ public class OrderController {
             );
         }
 
+
         boolean validTransition = switch (currentStatus) {
-            case NEW -> nextStatus == OrderStatus.CONFIRMED
-                    || nextStatus == OrderStatus.CANCELLED;
 
-            case CONFIRMED -> nextStatus == OrderStatus.PREPARING
-                    || nextStatus == OrderStatus.CANCELLED;
+            case NEW ->
+                    nextStatus == OrderStatus.PAYMENT_RECEIVED
+                            || nextStatus == OrderStatus.CANCELLED;
 
-            case PREPARING -> nextStatus == OrderStatus.READY
-                    || nextStatus == OrderStatus.CANCELLED;
+            case PAYMENT_RECEIVED ->
+                    nextStatus == OrderStatus.CONFIRMED
+                            || nextStatus == OrderStatus.CANCELLED;
 
-            case READY -> nextStatus == OrderStatus.OUT_FOR_DELIVERY
-                    || nextStatus == OrderStatus.CANCELLED;
+            case CONFIRMED ->
+                    nextStatus == OrderStatus.PREPARING
+                            || nextStatus == OrderStatus.CANCELLED;
+
+            case PREPARING ->
+                    nextStatus == OrderStatus.READY
+                            || nextStatus == OrderStatus.CANCELLED;
+
+            case READY ->
+                    nextStatus == OrderStatus.OUT_FOR_DELIVERY
+                            || nextStatus == OrderStatus.CANCELLED;
 
             case OUT_FOR_DELIVERY ->
                     nextStatus == OrderStatus.DELIVERED
@@ -159,6 +169,7 @@ public class OrderController {
 
             case DELIVERED, CANCELLED -> false;
         };
+
 
         if (!validTransition) {
             throw new ResponseStatusException(

@@ -1476,3 +1476,84 @@
         transition: none;
     }
 }
+.send-payment-btn {
+    background: #218653;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 11px 15px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.send-payment-btn:hover:not(:disabled) {
+    background: #176b42;
+}
+
+.send-payment-btn:focus-visible {
+    outline: 3px solid #145c37;
+    outline-offset: 3px;
+}
+
+.send-payment-btn:disabled {
+    background: #e8e2da;
+    color: #827b73;
+    cursor: not-allowed;
+}
+
+/* Hamsa Brownies — Premium Admin Status Dropdown */
+
+#orders .status-select {
+    display: block;
+    width: 100%;
+    min-width: 185px;
+    height: 44px;
+
+    padding: 10px 36px 10px 14px;
+
+    border: 1.5px solid #d9b69a;
+    border-radius: 12px;
+
+    background-color: #fffaf5;
+    color: #542b1c;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23713a28' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+
+    transition:
+            border-color 200ms ease,
+            box-shadow 200ms ease,
+            background-color 200ms ease;
+}
+
+#orders .status-select:hover:not(:disabled) {
+    border-color: #a66a45;
+    background-color: #fff4e8;
+}
+
+#orders .status-select:focus-visible {
+    outline: none;
+    border-color: #a66a45;
+    box-shadow: 0 0 0 3px rgba(166, 106, 69, 0.18);
+}
+
+#orders .status-select:disabled {
+    background-color: #f2ede8;
+    color: #8c8178;
+    border-color: #e3d8ce;
+    cursor: not-allowed;
+    opacity: 0.8;
+}

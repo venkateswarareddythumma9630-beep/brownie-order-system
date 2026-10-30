@@ -1,0 +1,77 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Our Products | Brownie Cake</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="customer-site">
+<nav class="site-nav">
+    <a class="site-logo" href="/">🍫 Brownie Cake</a>
+    <div class="site-links">
+        <a href="/">Home</a>
+        <a href="/about.html">About Us</a>
+        <a class="active" href="/products.html">Products</a>
+        <a href="/order.html">Order Now</a>
+    </div>
+</nav>
+
+<main class="home-main">
+    <section class="home-story">
+        <span class="home-kicker">FRESHLY PREPARED</span>
+        <h1>Our Brownie Collection</h1>
+        <p>Start with our signature brownie cake.</p>
+    </section>
+
+    <section class="product-grid">
+        <article class="product-card">
+            <div class="product-photo">
+                <img
+                        src="/images/brownie-product.jpg"
+                        alt="Homemade chocolate brownie cake"
+                        loading="lazy"
+                >
+            </div>
+            <div class="product-info">
+                <span class="home-kicker">OUR SIGNATURE</span>
+                <h2>Brownie Cake</h2>
+                <p>A rich chocolate treat for your sweet moments.</p>
+                <strong id="productPrice">Loading price...</strong>
+                <a class="home-cta" href="/order.html">Order Now →</a>
+            </div>
+        </article>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <strong>🍫 Brownie Cake</strong>
+    <p>Small Cakes. Big Happiness.</p>
+    <p>© <span id="copyrightYear"></span> Brownie Cake. All rights reserved.</p>
+    <p>Designed by <strong>Venkateswara Reddy Thumma</strong></p>
+</footer>
+
+<script>
+    document.querySelector("#copyrightYear").textContent =
+        new Date().getFullYear();
+
+    fetch("/api/config")
+        .then(response => {
+            if (!response.ok) throw new Error("Unable to load price");
+            return response.json();
+        })
+        .then(config => {
+            document.querySelector("#productPrice").textContent =
+                new Intl.NumberFormat("en-IN", {
+                    style: "currency",
+                    currency: "INR"
+                }).format(config.unitPrice);
+        })
+        .catch(() => {
+            document.querySelector("#productPrice").textContent =
+                "Contact us for pricing";
+        });
+</script>
+</body>
+</html>

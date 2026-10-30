@@ -1,4 +1,5 @@
 
+
 const TRACKING_STAGES = [
     {
         status: "NEW",
@@ -6,9 +7,14 @@ const TRACKING_STAGES = [
         message: "Waiting for payment confirmation"
     },
     {
+        status: "PAYMENT_RECEIVED",
+        title: "Payment Received",
+        message: "Your payment has been received and verified! ❤️"
+    },
+    {
         status: "CONFIRMED",
         title: "Order Confirmed",
-        message: "Preparing with love ❤️"
+        message: "Your brownie order has been confirmed!"
     },
     {
         status: "PREPARING",
@@ -31,6 +37,7 @@ const TRACKING_STAGES = [
         message: "Delivered with love. Enjoy!"
     }
 ];
+
 
 const trackingParams = new URLSearchParams(window.location.search);
 const trackingToken = trackingParams.get("token");
