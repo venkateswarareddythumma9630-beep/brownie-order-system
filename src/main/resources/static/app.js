@@ -1,3 +1,29 @@
+const productId = new URLSearchParams(window.location.search)
+    .get("product") || "brownie-cake";
+
+const products = {
+    "brownie-cake": {
+        name: "Brownie Cake",
+        unitPrice: 100,
+        unitLabel: "piece"
+    },
+    "walnut-brownie-delight": {
+        name: "Walnut Brownie Delight",
+        unitPrice: 499,
+        unitLabel: "500 g cake"
+    }
+};
+
+const selectedProduct = products[productId];
+
+if (!selectedProduct) {
+    document.querySelector("#message").textContent =
+        "Invalid product selected. Please return to our products page.";
+
+    document.querySelector("#submitBtn").disabled = true;
+
+    throw new Error("Unknown product: " + productId);
+}
 
 let config = {
     productName: "Brownie Cake",
@@ -51,13 +77,34 @@ fetch("/api/config")
         return r.json();
     })
     .then(c => {
-        config = c;
+        config = {
+            ...c,
+            productName: selectedProduct.name,
+            unitPrice: productId === "brownie-cake"
+                ? Number(c.unitPrice)
+                : selectedProduct.unitPrice
+        };
 
         document.querySelector("#brand").textContent =
-            c.productName + " Orders";
+            config.productName + " Orders";
 
         document.querySelector("#unitPrice").textContent =
-            money(c.unitPrice);
+            money(config.unitPrice);
+
+        document.querySelector("#quantityLabel").textContent =
+            productId === "walnut-brownie-delight"
+                ? "Number of 500 g cakes *"
+                : "Quantity *";
+
+        document.querySelector("#priceLabel").textContent =
+            productId === "walnut-brownie-delight"
+                ? "Price per 500 g cake"
+                : "Price per brownie cake";
+
+        document.querySelector("#productWeightNote").textContent =
+            productId === "walnut-brownie-delight"
+                ? "Minimum order: 500 g. Each additional quantity adds another 500 g cake."
+                : "";
 
         document.querySelector("#waTop").href =
             waLink("Hi! I'd like to order " + c.productName + ".");
@@ -108,6 +155,7 @@ form.addEventListener("submit", async e => {
 
     const data = {
         ...formData,
+        productId: productId,
         phone: customerWhatsApp,
         quantity: Number(formData.quantity)
     };
@@ -215,9 +263,11 @@ form.addEventListener("submit", async e => {
         msg.scrollIntoView({ behavior: "smooth", block: "center" });
 
 
+
         const text =
             `Hi! I submitted an order at Hamsa Brownies.\n` +
             `Order reference: #${reference}\n` +
+            `Product: ${body.productName}\n` +
             `Name: ${body.customerName}\n` +
             `Quantity: ${body.quantity}\n` +
             `Estimated total: ${money(body.totalAmount)}\n` +
@@ -225,6 +275,7 @@ form.addEventListener("submit", async e => {
             (trackingUrl
                 ? `My brownie tracking link:\n${trackingUrl}`
                 : "");
+
 
         const adminNumber = String(config.whatsappNumber || "").replace(/\D/g, "");
 

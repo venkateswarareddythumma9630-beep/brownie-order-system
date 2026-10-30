@@ -1,5 +1,4 @@
 
-
 const TRACKING_STAGES = [
     {
         status: "NEW",
@@ -37,7 +36,6 @@ const TRACKING_STAGES = [
         message: "Delivered with love. Enjoy!"
     }
 ];
-
 
 const trackingParams = new URLSearchParams(window.location.search);
 const trackingToken = trackingParams.get("token");

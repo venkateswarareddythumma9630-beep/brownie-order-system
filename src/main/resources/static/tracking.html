@@ -1,61 +1,32 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Track Your Brownie | Hamsa Brownies</title>
-    <link rel="stylesheet" href="/style.css?v=20261030-1">
-    <link rel="stylesheet" href="/tracking.css">
-    <script src="/layout.js" defer></script>
-    <script src="/tracking.js" defer></script>
+    <title>Track Your Order | Hamsa Brownies</title>
+    <link rel="stylesheet" href="/style.css?v=20261030-6">
 </head>
 <body class="customer-site">
-<div id="siteNavigation"></div>
-
+<nav id="siteNavigation" class="site-nav" aria-label="Main navigation"></nav>
 <main class="tracking-page">
     <section class="tracking-panel">
         <p class="tracking-eyebrow">HAMSA BROWNIES ❤️</p>
         <h1>Your Brownie Journey</h1>
-        <p class="tracking-subtitle">
-            Follow your brownie from our kitchen to your doorstep.
-        </p>
-
-        <div id="trackingLoading" class="tracking-message">
-            Loading your brownie journey...
-        </div>
-
-        <div id="trackingError" class="tracking-message tracking-error"
-             role="alert" hidden></div>
-
+        <p class="tracking-subtitle">Follow your brownie from our kitchen to your doorstep.</p>
+        <div id="trackingLoading" class="tracking-message">Loading your brownie journey...</div>
+        <div id="trackingError" class="tracking-message tracking-error" role="alert" hidden></div>
         <div id="trackingContent" hidden>
             <div class="tracking-order-info">
-                <div>
-                    <small>ORDER NUMBER</small>
-                    <strong id="trackingOrderNumber"></strong>
-                </div>
-                <div>
-                    <small>YOUR ORDER</small>
-                    <strong id="trackingProduct"></strong>
-                </div>
-                <div>
-                    <small>CURRENT STATUS</small>
-                    <strong id="trackingCurrentStatus"></strong>
-                </div>
+                <div><small>ORDER NUMBER</small><strong id="trackingOrderNumber"></strong></div>
+                <div><small>YOUR ORDER</small><strong id="trackingProduct"></strong></div>
+                <div><small>CURRENT STATUS</small><strong id="trackingCurrentStatus"></strong></div>
             </div>
-
-            <div id="trackingCancelled" class="tracking-cancelled"
-                 role="status" hidden>
+            <div id="trackingCancelled" class="tracking-cancelled" role="status" hidden>
                 <h2>Order Cancelled</h2>
-                <p>
-                    This order has been cancelled. Please contact
-                    Hamsa Brownies if you need assistance.
-                </p>
+                <p>This order has been cancelled. Please contact Hamsa Brownies if you need assistance.</p>
             </div>
-
             <div id="trackingJourney">
                 <div class="tracking-steps" id="trackingSteps"></div>
-
                 <div class="tracking-live-message" role="status">
                     <span class="tracking-live-dot"></span>
                     <span id="trackingMessage"></span>
@@ -64,7 +35,8 @@
         </div>
     </section>
 </main>
-
-<div id="siteFooter"></div>
+<footer id="siteFooter" class="site-footer"></footer>
+<script src="/tracking.js?v=20261030-6" defer></script>
+<script src="/layout.js?v=20261030-3" defer></script>
 </body>
 </html>

@@ -10,6 +10,11 @@ import java.util.UUID;
 public class BrownieOrder {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "product_id", length = 60)
+    private String productId = "brownie-cake";
+
+    @Column(name = "product_name", length = 120)
+    private String productName = "Brownie Cake";
     @Column(nullable=false) private String customerName;
     @Column(nullable=false) private String phone;
     @Column(nullable=false, length=1000) private String address;
@@ -30,11 +35,28 @@ public class BrownieOrder {
     }
 
     protected BrownieOrder() {}
-    public BrownieOrder(String customerName, String phone, String address, Integer quantity,
-                        BigDecimal unitPrice, BigDecimal totalAmount, String notes) {
-        this.customerName = customerName; this.phone = phone; this.address = address;
-        this.quantity = quantity; this.unitPrice = unitPrice; this.totalAmount = totalAmount;
-        this.notes = notes; this.status = OrderStatus.NEW; this.createdAt = Instant.now();
+    public BrownieOrder(
+            String customerName,
+            String phone,
+            String address,
+            Integer quantity,
+            BigDecimal unitPrice,
+            BigDecimal totalAmount,
+            String notes,
+            String productId,
+            String productName
+    ) {
+        this.customerName = customerName;
+        this.phone = phone;
+        this.address = address;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
+        this.totalAmount = totalAmount;
+        this.notes = notes;
+        this.productId = productId;
+        this.productName = productName;
+        this.status = OrderStatus.NEW;
+        this.createdAt = Instant.now();
     }
     public Long getId(){return id;} public String getCustomerName(){return customerName;}
     public String getPhone(){return phone;} public String getAddress(){return address;}
@@ -44,5 +66,12 @@ public class BrownieOrder {
     public void setStatus(OrderStatus status){this.status=status;}
     public String getTrackingToken() {
         return trackingToken;
+    }
+    public String getProductId() {
+        return productId == null ? "brownie-cake" : productId;
+    }
+
+    public String getProductName() {
+        return productName == null ? "Brownie Cake" : productName;
     }
 }

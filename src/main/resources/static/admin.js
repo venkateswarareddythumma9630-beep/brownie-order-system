@@ -182,6 +182,9 @@ async function load() {
               <tr>
                 <td>
                   <strong>#BR${String(o.id).padStart(5, "0")}</strong><br>
+                  <div class="order-product-name">
+                    ${esc(o.productName || "Brownie Cake")}
+                  </div>
                   <small>${new Date(o.createdAt).toLocaleString()}</small>
                 </td>
                 <td>

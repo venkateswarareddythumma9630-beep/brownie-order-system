@@ -22,19 +22,27 @@ public class OrderController {
     public OrderController(OrderRepository repository) { this.repository = repository; }
 
     public record CreateOrderRequest(
-        @NotBlank @Size(max=100) String customerName,
-        @NotBlank
-        @Pattern(
-                regexp = "^[0-9+() -]{8,20}$",
-                message = "Enter a valid phone number"
-        )
-        String phone,
-        @NotBlank @Size(max=1000) String address,
-        @NotNull @Min(1) @Max(100) Integer quantity,
-        @Size(max=500) String notes
+            @NotBlank @Size(max = 100) String customerName,
+
+            @NotBlank
+            @Pattern(
+                    regexp = "^[0-9+() -]{8,20}$",
+                    message = "Enter a valid phone number"
+            )
+            String phone,
+
+            @NotBlank @Size(max = 1000) String address,
+
+            @NotNull @Min(1) @Max(100) Integer quantity,
+
+            @Size(max = 500) String notes,
+
+            String productId
     ) {}
     public record OrderResponse(
             Long id,
+            String productId,
+            String productName,
             String customerName,
             String phone,
             String address,
@@ -49,6 +57,8 @@ public class OrderController {
         static OrderResponse from(BrownieOrder o) {
             return new OrderResponse(
                     o.getId(),
+                    o.getProductId(),
+                    o.getProductName(),
                     o.getCustomerName(),
                     o.getPhone(),
                     o.getAddress(),
@@ -89,11 +99,54 @@ public class OrderController {
 
     @PostMapping("/orders")
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderResponse create(@Valid @RequestBody CreateOrderRequest request) {
-        BigDecimal total = configuredPrice.multiply(BigDecimal.valueOf(request.quantity())).setScale(2, RoundingMode.HALF_UP);
-        BrownieOrder saved = repository.save(new BrownieOrder(request.customerName().trim(),
-            request.phone().trim(), request.address().trim(), request.quantity(),
-            configuredPrice, total, request.notes() == null ? "" : request.notes().trim()));
+    public OrderResponse create(
+            @Valid @RequestBody CreateOrderRequest request
+    ) {
+        String selectedProductId =
+                request.productId() == null || request.productId().isBlank()
+                        ? "brownie-cake"
+                        : request.productId().trim();
+
+        String selectedProductName;
+        BigDecimal selectedPrice;
+
+        switch (selectedProductId) {
+            case "brownie-cake" -> {
+                selectedProductName = productName;
+                selectedPrice = configuredPrice;
+            }
+
+            case "walnut-brownie-delight" -> {
+                selectedProductName = "Walnut Brownie Delight";
+                selectedPrice = new BigDecimal("499.00");
+            }
+
+            default -> throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Invalid product selected"
+            );
+        }
+
+        BigDecimal total = selectedPrice
+                .multiply(BigDecimal.valueOf(request.quantity()))
+                .setScale(2, RoundingMode.HALF_UP);
+
+        BrownieOrder saved = repository.save(
+                new BrownieOrder(
+                        request.customerName().trim(),
+                        request.phone().trim(),
+                        request.address().trim(),
+                        request.quantity(),
+                        selectedPrice,
+                        total,
+                        request.notes() == null
+                                ? ""
+                                : request.notes().trim(),
+                        selectedProductId,
+                        selectedProductName
+                )
+        );
+
         return OrderResponse.from(saved);
     }
 
@@ -194,7 +247,7 @@ public class OrderController {
                         "Tracking information not found"
                 ));
 
-        return TrackingResponse.from(order, productName);
+        return TrackingResponse.from(order, order.getProductName());
     }
 }
 
