@@ -15,7 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (nav) {
         const links = pages.map(page => {
-            const active = page.href === activePath;
+            const active =
+                page.label === "Order Now"
+                    ? activePath === "/order.html"
+                    : page.href === activePath;
             return `
         <a href="${page.href}"
            class="${active ? "active" : ""}"
