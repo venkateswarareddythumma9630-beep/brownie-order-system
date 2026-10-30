@@ -129,18 +129,102 @@ form.addEventListener("submit", async e => {
 
         const reference = `BR${String(body.id).padStart(5, "0")}`;
 
-        msg.className = "success";
-        msg.textContent =
-            `Order saved! Reference #${reference}. Estimated total: ` +
-            `${money(body.totalAmount)}. The bakery still needs to confirm your order.`;
+        const trackingUrl = body.trackingToken
+            ? new URL(
+                `/tracking.html?token=${encodeURIComponent(body.trackingToken)}`,
+                window.location.origin
+            ).href
+            : null;
+
+
+        msg.className = "order-success";
+        msg.replaceChildren();
+
+        const successCard = document.createElement("div");
+        successCard.className = "order-success-card";
+
+        successCard.innerHTML = `
+    <div class="order-success-icon" aria-hidden="true">✓</div>
+
+    <h2>Order Placed Successfully!</h2>
+
+    <p class="order-success-subtitle">
+        Thank you for choosing Hamsa Brownies ❤️
+    </p>
+
+    <div class="order-success-details">
+        <div class="order-success-row">
+            <span>ORDER REFERENCE</span>
+            <strong>#${reference}</strong>
+        </div>
+
+        <div class="order-success-row">
+            <span>ESTIMATED TOTAL</span>
+            <strong>${money(body.totalAmount)}</strong>
+        </div>
+
+        <div class="order-success-row">
+            <span>CURRENT STATUS</span>
+            <span class="order-success-status">
+                Waiting for Confirmation
+            </span>
+        </div>
+    </div>
+
+    <p class="order-success-note">
+        Your order will be confirmed after payment verification.
+    </p>
+`;
+
+
+        if (trackingUrl) {
+            const note = successCard.querySelector(".order-success-note");
+
+            // Open the customer's private tracking page.
+            const trackingButton = document.createElement("a");
+            trackingButton.href = trackingUrl;
+            trackingButton.className = "order-success-track";
+            trackingButton.textContent = "Track Your Brownie Journey →";
+
+            // Let the customer save their tracking link in WhatsApp.
+            const saveWhatsAppButton = document.createElement("a");
+
+            const saveMessage =
+                `Hi! This is my Hamsa Brownies order tracking link ❤️\n\n` +
+                `Order reference: #${reference}\n` +
+                `Track my brownie:\n${trackingUrl}\n\n` +
+                `I can use this link to check my order status anytime.`;
+
+            saveWhatsAppButton.href =
+                `https://wa.me/${customerWhatsApp}?text=${encodeURIComponent(saveMessage)}`;
+
+            saveWhatsAppButton.target = "_blank";
+            saveWhatsAppButton.rel = "noopener noreferrer";
+            saveWhatsAppButton.className = "order-success-whatsapp";
+            saveWhatsAppButton.textContent = "Save Tracking Link to WhatsApp";
+
+            const saveNote = document.createElement("p");
+            saveNote.className = "order-success-save-note";
+            saveNote.textContent =
+                "WhatsApp will open with your tracking link. Tap Send to save it in your chat.";
+
+            note.before(trackingButton, saveWhatsAppButton, saveNote);
+        }
+
+        msg.appendChild(successCard);
+        msg.scrollIntoView({ behavior: "smooth", block: "center" });
+
 
         const text =
-            `Hi! I submitted an order on your order page.\n` +
+            `Hi! I submitted an order at Hamsa Brownies.\n` +
             `Order reference: #${reference}\n` +
             `Name: ${body.customerName}\n` +
             `Quantity: ${body.quantity}\n` +
             `Estimated total: ${money(body.totalAmount)}\n` +
-            `Please confirm availability and delivery.`;
+            `Please confirm payment and delivery.\n\n` +
+            (trackingUrl
+                ? `My brownie tracking link:\n${trackingUrl}`
+                : "");
 
         const adminNumber = String(config.whatsappNumber || "").replace(/\D/g, "");
 

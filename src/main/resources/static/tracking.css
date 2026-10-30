@@ -1,0 +1,243 @@
+
+.tracking-page {
+    min-height: 75vh;
+    padding: 55px 18px 80px;
+    background: linear-gradient(160deg, #fff7ed, #f8e6d4);
+}
+
+.tracking-panel {
+    max-width: 850px;
+    margin: auto;
+    padding: 35px;
+    background: #fffdf9;
+    border-radius: 24px;
+    box-shadow: 0 14px 45px rgba(80, 35, 20, .1);
+    text-align: center;
+}
+
+.tracking-eyebrow {
+    color: #a06b40;
+    font-weight: 800;
+    letter-spacing: 2px;
+    font-size: 12px;
+}
+
+.tracking-panel h1 {
+    color: #4a2519;
+    font-family: Georgia, serif;
+    font-size: clamp(28px, 4vw, 42px);
+    margin: 12px 0;
+}
+
+.tracking-subtitle {
+    color: #86634e;
+    margin-bottom: 30px;
+}
+
+.tracking-order-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 25px 0 35px;
+}
+
+.tracking-order-info > div {
+    background: #fff1e1;
+    padding: 16px 10px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tracking-order-info small {
+    color: #946b4c;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.tracking-order-info strong {
+    color: #512b1e;
+    overflow-wrap: anywhere;
+}
+
+.tracking-steps {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+.tracking-step {
+    display: flex;
+    gap: 18px;
+    min-height: 112px;
+}
+
+.tracking-step:last-child {
+    min-height: 75px;
+}
+
+.tracking-step-rail {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 65px;
+    flex-shrink: 0;
+}
+
+.tracking-node {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid #e8d2bc;
+    background: #fff7ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a98a72;
+    font-size: 23px;
+    transition: background .4s, border-color .4s;
+}
+
+.tracking-step.completed .tracking-node {
+    background: #6c422e;
+    border-color: #6c422e;
+    color: white;
+}
+
+.tracking-step.active .tracking-node {
+    background: #fff1db;
+    border-color: #a96c35;
+    box-shadow: 0 0 0 6px rgba(169,108,53,.12);
+}
+
+.tracking-brownie {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    animation: brownieFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes brownieFloat {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-5px) rotate(3deg); }
+}
+
+.tracking-rail-line {
+    width: 4px;
+    flex: 1;
+    background: #ead8c6;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+
+.tracking-step.completed .tracking-rail-line {
+    background: #6c422e;
+}
+
+.tracking-step-info {
+    padding: 8px 0;
+}
+
+.tracking-step-info h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: #6c4e3e;
+}
+
+.tracking-step.active .tracking-step-info h3 {
+    color: #5b2d1c;
+}
+
+.tracking-step-info p {
+    margin: 0;
+    font-size: 13px;
+    color: #9a7964;
+    line-height: 1.5;
+}
+
+.tracking-live-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 17px;
+    border-radius: 14px;
+    background: #fff1dc;
+    color: #623d25;
+    font-weight: 700;
+}
+
+.tracking-live-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #45a16c;
+    flex-shrink: 0;
+}
+
+.tracking-cancelled {
+    background: #fff0ed;
+    color: #a13e31;
+    border: 1px solid #f2c4bc;
+    border-radius: 16px;
+    padding: 25px;
+    margin-top: 25px;
+}
+
+.tracking-cancelled h2 {
+    color: #a13e31;
+}
+
+.tracking-message {
+    padding: 20px;
+    color: #6c422e;
+}
+
+.tracking-error {
+    color: #a13e31;
+}
+
+@media (max-width: 600px) {
+    .tracking-panel {
+        padding: 22px 14px;
+    }
+
+    .tracking-order-info {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .tracking-step {
+        gap: 10px;
+        min-height: 105px;
+    }
+
+    .tracking-node {
+        width: 52px;
+        height: 52px;
+    }
+
+    .tracking-brownie {
+        width: 46px;
+        height: 46px;
+    }
+
+    .tracking-step-rail {
+        width: 56px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tracking-brownie {
+        animation: none;
+    }
+
+    .tracking-node {
+        transition: none;
+    }
+}

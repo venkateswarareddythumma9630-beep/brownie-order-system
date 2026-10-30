@@ -9,6 +9,27 @@ const statuses = [
     "CANCELLED"
 ];
 
+const allowedTransitions = {
+    NEW: ["CONFIRMED", "CANCELLED"],
+    CONFIRMED: ["PREPARING", "CANCELLED"],
+    PREPARING: ["READY", "CANCELLED"],
+    READY: ["OUT_FOR_DELIVERY", "CANCELLED"],
+    OUT_FOR_DELIVERY: ["DELIVERED", "CANCELLED"],
+    DELIVERED: [],
+    CANCELLED: []
+};
+
+function isOrderClosed(status) {
+    return status === "DELIVERED" || status === "CANCELLED";
+}
+
+function getAvailableStatuses(currentStatus) {
+    return [
+        currentStatus,
+        ...(allowedTransitions[currentStatus] || [])
+    ];
+}
+
 const money = n =>
     new Intl.NumberFormat("en-IN", {
         style: "currency",
@@ -126,14 +147,27 @@ async function load() {
                 <td><div class="details">${esc(o.notes || "—")}</div></td>
                 <td>
                   <select class="status-select"
-                    data-id="${o.id}"
-                    aria-label="Status for order ${o.id}">
-                    ${statuses.map(s => `
-                      <option value="${s}" ${s === o.status ? "selected" : ""}>
-                        ${s.replaceAll("_", " ")}
-                      </option>
-                    `).join("")}
-                  </select>
+                      data-id="${o.id}"
+                      aria-label="Status for order ${o.id}"
+                      ${isOrderClosed(o.status) ? "disabled" : ""}>
+                    
+                      ${getAvailableStatuses(o.status).map(s => `
+                        <option value="${s}" ${s === o.status ? "selected" : ""}>
+                          ${s.replaceAll("_", " ")}
+                        </option>
+                      `).join("")}
+                    
+                    </select>
+                    
+                    ${isOrderClosed(o.status) ? `
+                      <div class="order-closed-label ${
+                                o.status === "CANCELLED" ? "order-cancelled-label" : ""
+                            }">
+                        ${o.status === "DELIVERED"
+                                ? "✓ Journey Completed"
+                                : "✕ Order Cancelled"}
+                      </div>
+                    ` : ""}
                 </td>
               </tr>
             `).join("")}
@@ -146,6 +180,15 @@ async function load() {
             sel.addEventListener("change", async () => {
                 const order = orders.find(o => String(o.id) === sel.dataset.id);
                 const newStatus = sel.value;
+
+                if (!order ||
+                    isOrderClosed(order.status) ||
+                    !allowedTransitions[order.status]?.includes(newStatus)) {
+
+                    alert("This status change is not allowed.");
+                    await load();
+                    return;
+                }
 
                 // Open a blank tab immediately during the user's status-change action.
                 // This helps prevent the browser from blocking the WhatsApp tab.

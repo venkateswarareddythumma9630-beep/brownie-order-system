@@ -3,6 +3,7 @@ package com.brownie.orders;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Table(name = "customer_orders")
@@ -18,6 +19,15 @@ public class BrownieOrder {
     @Column(length=500) private String notes;
     @Enumerated(EnumType.STRING) @Column(nullable=false) private OrderStatus status = OrderStatus.NEW;
     @Column(nullable=false) private Instant createdAt = Instant.now();
+    @Column(unique = true, length = 36)
+    private String trackingToken;
+
+    @PrePersist
+    void generateTrackingToken() {
+        if (trackingToken == null) {
+            trackingToken = UUID.randomUUID().toString();
+        }
+    }
 
     protected BrownieOrder() {}
     public BrownieOrder(String customerName, String phone, String address, Integer quantity,
@@ -32,4 +42,7 @@ public class BrownieOrder {
     public BigDecimal getTotalAmount(){return totalAmount;} public String getNotes(){return notes;}
     public OrderStatus getStatus(){return status;} public Instant getCreatedAt(){return createdAt;}
     public void setStatus(OrderStatus status){this.status=status;}
+    public String getTrackingToken() {
+        return trackingToken;
+    }
 }

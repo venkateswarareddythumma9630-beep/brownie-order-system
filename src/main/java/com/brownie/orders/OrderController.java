@@ -33,12 +33,51 @@ public class OrderController {
         @NotNull @Min(1) @Max(100) Integer quantity,
         @Size(max=500) String notes
     ) {}
-    public record OrderResponse(Long id, String customerName, String phone, String address,
-        Integer quantity, BigDecimal unitPrice, BigDecimal totalAmount, String notes,
-        OrderStatus status, java.time.Instant createdAt) {
+    public record OrderResponse(
+            Long id,
+            String customerName,
+            String phone,
+            String address,
+            Integer quantity,
+            BigDecimal unitPrice,
+            BigDecimal totalAmount,
+            String notes,
+            OrderStatus status,
+            java.time.Instant createdAt,
+            String trackingToken
+    ) {
         static OrderResponse from(BrownieOrder o) {
-            return new OrderResponse(o.getId(),o.getCustomerName(),o.getPhone(),o.getAddress(),
-                o.getQuantity(),o.getUnitPrice(),o.getTotalAmount(),o.getNotes(),o.getStatus(),o.getCreatedAt());
+            return new OrderResponse(
+                    o.getId(),
+                    o.getCustomerName(),
+                    o.getPhone(),
+                    o.getAddress(),
+                    o.getQuantity(),
+                    o.getUnitPrice(),
+                    o.getTotalAmount(),
+                    o.getNotes(),
+                    o.getStatus(),
+                    o.getCreatedAt(),
+                    o.getTrackingToken()
+            );
+        }
+    }
+
+    public record TrackingResponse(
+            String orderNumber,
+            String productName,
+            Integer quantity,
+            OrderStatus status,
+            java.time.Instant createdAt
+    ) {
+        static TrackingResponse from(BrownieOrder order, String productName) {
+            return new TrackingResponse(
+                    "HB-" + order.getId(),
+                    productName,
+                    order.getQuantity(),
+                    order.getStatus(),
+                    order.getCreatedAt()
+            );
         }
     }
 
@@ -63,15 +102,88 @@ public class OrderController {
         return repository.findAllByOrderByCreatedAtDesc().stream().map(OrderResponse::from).toList();
     }
 
+
     @PatchMapping("/orders/{id}/status")
-    public OrderResponse updateStatus(@PathVariable Long id, @RequestBody Map<String,String> body) {
-        OrderStatus status;
-        try { status = OrderStatus.valueOf(body.getOrDefault("status", "").toUpperCase()); }
-        catch (IllegalArgumentException ex) { throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unknown status"); }
+    public OrderResponse updateStatus(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> body) {
+
+        OrderStatus nextStatus;
+
+        try {
+            nextStatus = OrderStatus.valueOf(
+                    body.getOrDefault("status", "")
+                            .trim()
+                            .toUpperCase()
+            );
+        } catch (IllegalArgumentException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Unknown order status"
+            );
+        }
+
         BrownieOrder order = repository.findById(id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found"));
-        order.setStatus(status);
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Order not found"
+                ));
+
+        OrderStatus currentStatus = order.getStatus();
+
+        // Delivered and cancelled orders are permanently closed.
+        if (currentStatus == OrderStatus.DELIVERED ||
+                currentStatus == OrderStatus.CANCELLED) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "This order is already closed. Status cannot be changed."
+            );
+        }
+
+        boolean validTransition = switch (currentStatus) {
+            case NEW -> nextStatus == OrderStatus.CONFIRMED
+                    || nextStatus == OrderStatus.CANCELLED;
+
+            case CONFIRMED -> nextStatus == OrderStatus.PREPARING
+                    || nextStatus == OrderStatus.CANCELLED;
+
+            case PREPARING -> nextStatus == OrderStatus.READY
+                    || nextStatus == OrderStatus.CANCELLED;
+
+            case READY -> nextStatus == OrderStatus.OUT_FOR_DELIVERY
+                    || nextStatus == OrderStatus.CANCELLED;
+
+            case OUT_FOR_DELIVERY ->
+                    nextStatus == OrderStatus.DELIVERED
+                            || nextStatus == OrderStatus.CANCELLED;
+
+            case DELIVERED, CANCELLED -> false;
+        };
+
+        if (!validTransition) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Invalid status transition from "
+                            + currentStatus + " to " + nextStatus
+            );
+        }
+
+        order.setStatus(nextStatus);
+
         return OrderResponse.from(repository.save(order));
+    }
+
+
+    @GetMapping("/track/{token}")
+    public TrackingResponse trackOrder(@PathVariable String token) {
+
+        BrownieOrder order = repository.findByTrackingToken(token)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Tracking information not found"
+                ));
+
+        return TrackingResponse.from(order, productName);
     }
 }
 
