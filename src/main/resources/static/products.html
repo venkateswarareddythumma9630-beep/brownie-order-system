@@ -4,19 +4,84 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Our Brownies | Hamsa Brownies</title>
+
+    <!-- SEO: Page Title -->
+    <title>Order Homemade Brownies Online | Hamsa Brownies</title>
+
+    <!-- SEO: Meta Description -->
+    <meta name="description"
+          content="Explore homemade chocolate brownies at Hamsa Brownies. Order our signature Brownie Cake or Walnut Brownie Delight, freshly prepared with love.">
+
+    <!-- SEO: Canonical URL -->
+    <link rel="canonical"
+          href="https://hamsabrownie.in/products.html">
+
+    <!-- Social Sharing: Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Hamsa Brownies">
+    <meta property="og:title"
+          content="Our Brownie Collection | Hamsa Brownies">
+    <meta property="og:description"
+          content="Discover our signature Brownie Cake and Walnut Brownie Delight. Freshly prepared homemade chocolate treats.">
+    <meta property="og:url"
+          content="https://hamsabrownie.in/products.html">
+    <meta property="og:image"
+          content="https://hamsabrownie.in/images/brownie-product.jpg">
+
+    <!-- Mobile Browser Theme -->
+    <meta name="theme-color" content="#fff8f0">
+
+    <!-- SEO: Structured Data -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Our Brownie Collection",
+            "url": "https://hamsabrownie.in/products.html",
+            "description": "Explore homemade chocolate brownies, including Brownie Cake and Walnut Brownie Delight.",
+            "isPartOf": {
+                "@type": "WebSite",
+                "name": "Hamsa Brownies",
+                "url": "https://hamsabrownie.in/"
+            },
+            "mainEntity": {
+                "@type": "ItemList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Brownie Cake",
+                        "url": "https://hamsabrownie.in/order.html?product=brownie-cake"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "Walnut Brownie Delight",
+                        "url": "https://hamsabrownie.in/order.html?product=walnut-brownie-delight"
+                    }
+                ]
+            }
+        }
+    </script>
+
+    <!-- Existing CSS -->
     <link rel="stylesheet" href="/style.css?v=20261030-2">
 </head>
+
 <body class="customer-site">
-<nav id="siteNavigation" class="site-nav" aria-label="Main navigation"></nav>
+<nav id="siteNavigation"
+     class="site-nav"
+     aria-label="Main navigation"></nav>
 
 <main class="home-main">
     <section class="home-story">
         <span class="home-kicker">FRESHLY PREPARED</span>
         <h1>Our Brownie Collection</h1>
-        <p> Discover our handcrafted chocolate brownies,
+        <p>
+            Discover our handcrafted chocolate brownies,
             from our signature Brownie Cake to our rich
-            Walnut Brownie Delight.</p>
+            Walnut Brownie Delight.
+        </p>
     </section>
 
     <section class="product-grid">
@@ -28,17 +93,21 @@
                         loading="lazy"
                 >
             </div>
+
             <div class="product-info">
                 <span class="home-kicker">OUR SIGNATURE</span>
                 <h2>Brownie Cake</h2>
                 <p>A rich chocolate treat for your sweet moments.</p>
+
                 <strong id="productPrice">Loading price...</strong>
+
                 <a class="product-order-btn"
                    href="/order.html?product=brownie-cake">
                     Order Now <span aria-hidden="true">→</span>
                 </a>
             </div>
         </article>
+
         <article class="product-card walnut-product">
             <div class="product-photo">
                 <img
@@ -73,6 +142,7 @@
 
 <footer id="siteFooter" class="site-footer"></footer>
 
+<!-- Existing price loading functionality -->
 <script>
     fetch("/api/config")
         .then(response => {
@@ -91,6 +161,7 @@
                 "Contact us for pricing";
         });
 </script>
+
 <script src="/layout.js?v=20261030-1" defer></script>
 </body>
 </html>
